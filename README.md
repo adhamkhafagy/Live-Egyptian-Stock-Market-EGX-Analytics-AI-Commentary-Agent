@@ -74,6 +74,4 @@ pointing at the repo's data file.
 - [x] Phase 2: Power BI dashboard (overview + stock detail pages)
 - [x] Phase 3: AI commentary agent (Groq API)
 - [x] Automation: GitHub Actions daily workflow
-- [ ] Phase 4: Migrate from SQLite to PostgreSQL to match the rest of the
-      BI stack (optional — only worth it if data volume grows or the
-      project needs to run from multiple places at once)
+
