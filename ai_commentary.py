@@ -77,7 +77,7 @@ def build_prompt(moves: list[dict]) -> str:
 Here is today's closing data (percent change vs. previous close):
 {data_block}
 
-Write a concise market summary in both languages (english and arabic) (4-6 sentences) that:
+Write a concise market summary (4-6 sentences) that:
 - Opens with the overall tone of the session (mostly up / mostly down / mixed)
 - Names the top 2 gainers and top 2 losers with their % change
 - Avoids generic filler phrases -- be specific to the numbers given
@@ -95,9 +95,21 @@ def generate_commentary(moves: list[dict]) -> str:
         model=MODEL_NAME,
         messages=[{"role": "user", "content": prompt}],
         temperature=0.4,
-        max_tokens=400,
+        max_tokens=900,
     )
-    return response.choices[0].message.content
+
+    message = response.choices[0].message
+    content = message.content
+
+    # Debug visibility: some Groq models (e.g. gpt-oss) can return reasoning
+    # separately from the final answer, or an empty content string if the
+    # request was truncated or malformed. Print the raw response so we can
+    # see exactly what came back if content ends up empty.
+    if not content:
+        print("[DEBUG] Empty content returned. Full response object:")
+        print(response)
+
+    return content
 
 
 def main() -> None:
