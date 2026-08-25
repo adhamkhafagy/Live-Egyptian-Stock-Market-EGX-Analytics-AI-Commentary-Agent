@@ -1,0 +1,38 @@
+name: Daily EGX Data & Commentary
+
+on:
+  schedule:
+    - cron: "30 13 * * 0-4"
+  workflow_dispatch:
+
+jobs:
+  fetch-and-comment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch latest EGX prices
+        run: python fetch_egx_data.py
+
+      - name: Generate AI commentary
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: python ai_commentary.py
+
+      - name: Commit updated data back to the repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/egx.db data/latest_commentary.txt
+          git diff --staged --quiet || git commit -m "Daily EGX data update - $(date -u +'%Y-%m-%d')"
+          git push
