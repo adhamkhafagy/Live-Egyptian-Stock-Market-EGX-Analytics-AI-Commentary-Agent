@@ -1,9 +1,13 @@
 name: Daily EGX Data & Commentary
 
+# Runs every weekday at 16:30 Cairo time (EGX closes ~14:30, so this
+# gives a buffer). GitHub Actions schedules use UTC, and Cairo is UTC+2
+# (or UTC+3 during Egypt's DST, if in effect) -- adjust the cron hour if
+# the timing drifts after a DST change.
 on:
   schedule:
-    - cron: "30 13 * * 0-4"
-  workflow_dispatch:
+    - cron: "30 14 * * 0-4"   # 14:30 UTC = 16:30 Cairo (UTC+2), Sun-Thu (EGX trading days)
+  workflow_dispatch:            # lets you trigger it manually from the Actions tab too
 
 jobs:
   fetch-and-comment:
