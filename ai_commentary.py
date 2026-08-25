@@ -77,7 +77,7 @@ def build_prompt(moves: list[dict]) -> str:
 Here is today's closing data (percent change vs. previous close):
 {data_block}
 
-Write a concise market summary (4-6 sentences) that:
+Write a concise market summary in both languages (english and arabic) (4-6 sentences) that:
 - Opens with the overall tone of the session (mostly up / mostly down / mixed)
 - Names the top 2 gainers and top 2 losers with their % change
 - Avoids generic filler phrases -- be specific to the numbers given
