@@ -84,6 +84,14 @@ Write a concise market summary (4-6 sentences) that:
 - Is written in a professional but accessible tone, suitable for a daily report
 
 Do not invent any news or reasons not present in the data -- only describe the price movements themselves.
+
+Write the summary TWICE, in this exact structure:
+
+### English
+<the English summary here>
+
+### العربي
+<the same summary translated into Arabic here, using masculine standard Arabic>
 """
 
 
